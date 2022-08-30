@@ -49,11 +49,13 @@ steps:
 - task: CmdLine@2
   inputs:
     script: |
-      sudo apt-get install google-cloud-sdk 
+      snap remove google-cloud-sdk
+      snap install google-cloud-cli --classic
+      gcloud init
+      gcloud components install beta
       gcloud auth activate-service-account \
           --quiet \
           --key-file sa.json && \
-      gcloud components install beta && \
       gcloud beta apigee archives deploy --organization=$APIGEE_ORG \
           --environment=$APIGEE_CONFIG_ENV --source=proxy
 
