@@ -17,10 +17,8 @@ variables:
   APIGEE_CONFIG_ENV: "configurable-dev"
   TEST_HOST: 34-117-38-184.nip.io
 
-  # GCP_SERVICE_ACCOUNT, APIGEE_USER & APIGEE_PASSWORD are stored in Azure Pipeline variable settings
+  # GCP_SERVICE_ACCOUNT is stored in Azure Pipeline variable settings
   
-
-
 steps:
 
 
@@ -49,6 +47,15 @@ steps:
   env:  
     GCP_SERVICE_ACCOUNT: $(GCP_SERVICE_ACCOUNT)
 
+- task: CmdLine@2
+  inputs:
+    script: |
+      gcloud auth activate-service-account \
+          --quiet \
+          --key-file sa.json && \
+      gcloud components install beta && \
+      gcloud beta apigee archives deploy --organization=$APIGEE_ORG \
+          --environment=$APIGEE_CONFIG_ENV --source=proxy
 
 # run Apickli, API test integration
 - bash: |
@@ -60,14 +67,14 @@ steps:
     node ./test/integration/index.js
     cp ./cucumber_report.html integration_output/apickli_report.html 
   displayName: runApickli
-  enabled: "true"
+  enabled: "false"
 
   
 
 # Publish integration test folder result
 - task: PublishBuildArtifacts@1
   displayName: publishInteegrationTestsResults
-  enabled: "true"
+  enabled: "false"
   inputs:
     pathToPublish: integration_output
     artifactName: integration-tests
