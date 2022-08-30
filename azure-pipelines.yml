@@ -51,8 +51,8 @@ steps:
     script: |
       curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-400.0.0-linux-x86_64.tar.gz
       tar zxvf google-cloud-cli-400.0.0-linux-x86_64.tar.gz google-cloud-sdk
-      mv /usr/lib/google-cloud-sdk /usr/lib/google-cloud-sdk-ORIG
-      mv google-cloud-sdk /usr/lib/
+      sudo mv /usr/lib/google-cloud-sdk /usr/lib/google-cloud-sdk-ORIG
+      sudo mv google-cloud-sdk /usr/lib/
       gcloud components update
       gcloud components install beta
       gcloud auth activate-service-account \
