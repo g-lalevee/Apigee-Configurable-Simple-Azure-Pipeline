@@ -9,7 +9,7 @@ trigger:
 - releases/*
 
 pool:
-  vmImage: 'ubuntu-18.04'
+  vmImage: 'ubuntu-latest'
 
 variables:
 
@@ -49,6 +49,7 @@ steps:
 - task: CmdLine@2
   inputs:
     script: |
+      sudo apt-get install google-cloud-sdk && \
       gcloud auth activate-service-account \
           --quiet \
           --key-file sa.json && \
