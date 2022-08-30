@@ -49,9 +49,11 @@ steps:
 - task: CmdLine@2
   inputs:
     script: |
-      sudo snap remove google-cloud-sdk
-      sudo snap install google-cloud-cli --classic
-      gcloud init --skip-diagnostics
+      curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-400.0.0-linux-x86_64.tar.gz
+      tar zxvf google-cloud-cli-400.0.0-linux-x86_64.tar.gz google-cloud-sdk
+      mv /usr/lib/google-cloud-sdk /usr/lib/google-cloud-sdk-ORIG
+      mv google-cloud-sdk /usr/lib/
+      gcloud components update
       gcloud components install beta
       gcloud auth activate-service-account \
           --quiet \
