@@ -1,0 +1,11 @@
+[
+    {
+        "name": "products",
+        "host": "cloud.hipster.s.dynolab.io",
+        "port": 443,
+        "isEnabled" : true,
+        "sSLInfo": {
+            "enabled": true
+        }
+    }
+]
