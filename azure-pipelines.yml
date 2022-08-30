@@ -49,9 +49,9 @@ steps:
 - task: CmdLine@2
   inputs:
     script: |
-      snap remove google-cloud-sdk
-      snap install google-cloud-cli --classic
-      gcloud init
+      sudo snap remove google-cloud-sdk
+      sudo snap install google-cloud-cli --classic
+      gcloud init --skip-diagnostics
       gcloud components install beta
       gcloud auth activate-service-account \
           --quiet \
