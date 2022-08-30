@@ -9,7 +9,7 @@ trigger:
 - releases/*
 
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: 'ubuntu-18.04'
 
 variables:
 
@@ -55,6 +55,8 @@ steps:
       gcloud components install beta && \
       gcloud beta apigee archives deploy --organization=$APIGEE_ORG \
           --environment=$APIGEE_CONFIG_ENV --source=proxy
+
+
 
 # run Apickli, API test integration
 - bash: |
