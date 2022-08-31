@@ -49,12 +49,18 @@ steps:
 - task: CmdLine@2
   inputs:
     script: |
+      sudo apt-get remove google-cloud-sdk
       sudo curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-400.0.0-linux-x86_64.tar.gz
       sudo tar zxvf google-cloud-cli-400.0.0-linux-x86_64.tar.gz google-cloud-sdk
-      sudo mv /usr/lib/google-cloud-sdk /usr/lib/google-cloud-sdk-ORIG
-      sudo mv google-cloud-sdk /usr/lib/
+      sudo ./google-cloud-sdk/install.sh
+
+      #sudo mv /usr/lib/google-cloud-sdk /usr/lib/google-cloud-sdk-ORIG
+      #sudo mv google-cloud-sdk /usr/lib/
+
       gcloud components update
-      sudo /usr/lib/google-cloud-sdk/bin/gcloud components install beta --verbosity=debug
+      gcloud components install beta --verbosity=debug
+      
+      # sudo /usr/lib/google-cloud-sdk/bin/gcloud components install beta --verbosity=debug
       echo "------------"
       gcloud auth activate-service-account \
           --quiet \
