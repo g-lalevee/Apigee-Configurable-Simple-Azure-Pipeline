@@ -54,7 +54,7 @@ steps:
       sudo mv /usr/lib/google-cloud-sdk /usr/lib/google-cloud-sdk-ORIG
       sudo mv google-cloud-sdk /usr/lib/
       gcloud components update
-      sudo /usr/lib/google-cloud-sdk/bin/gcloud components install beta
+      sudo /usr/lib/google-cloud-sdk/bin/gcloud components install beta --verbosity=debug
       echo "------------"
       gcloud auth activate-service-account \
           --quiet \
