@@ -49,12 +49,12 @@ steps:
 - task: CmdLine@2
   inputs:
     script: |
-      curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-400.0.0-linux-x86_64.tar.gz
-      tar zxvf google-cloud-cli-400.0.0-linux-x86_64.tar.gz google-cloud-sdk
+      sudo curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-400.0.0-linux-x86_64.tar.gz
+      sudo tar zxvf google-cloud-cli-400.0.0-linux-x86_64.tar.gz google-cloud-sdk
       sudo mv /usr/lib/google-cloud-sdk /usr/lib/google-cloud-sdk-ORIG
       sudo mv google-cloud-sdk /usr/lib/
       gcloud components update
-      sudo gcloud components install beta
+      gcloud components install beta
       echo "------------"
       gcloud auth activate-service-account \
           --quiet \
