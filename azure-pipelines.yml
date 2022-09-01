@@ -51,22 +51,33 @@ steps:
       gcloud auth activate-service-account \
           --quiet \
           --key-file sa.json && \
+      echo "Deploying Configurable proxy (archive)..."
       gcloud beta apigee archives deploy --organization=$APIGEE_ORG \
           --environment=$APIGEE_CONFIG_ENV --source=proxy
 
 # run Apickli, API test integration
 - bash: |
-    echo "run Apickli"
+    echo "Running Apickli..."
+    # extract basepath from proxy config file
+    API_BASEPATH=$(grep 'basepath:' ./proxy/src/main/apigee/apiproxies/hipster-conf/config.yaml | tail -n1 | awk '{ print $2}' | sed 's,/,\\/,g' | tr -d '"')
+      
+    # extract proxy name from folder structure
+    PROXY_NAME=$(ls ./proxy/src/main/apigee/apiproxies/)
+        
+    # update apickli config file (init.js) with API hostname and base path
+    sed -i "s/api_basepath/$API_BASEPATH/g" ./test/$PROXY_NAME/integration/features/support/init.js
+    sed -i "s/organization_hostname/$TEST_HOST/g" ./test/$PROXY_NAME/integration/features/support/init.js
+    
+    # NODE_TLS_REJECT_UNAUTHORIZED required to support self signed certificate
+    export NODE_TLS_REJECT_UNAUTHORIZED=0
+    
+    node ./node_modules/.bin/cucumber-js  ./test/$PROXY_NAME/integration --format json:./report.json
+    node ./test/index.js
+
     mkdir integration_output
-    export NODE_TLS_REJECT_UNAUTHORIZED="0"
-    sed -i "s/organization_hostname/$TEST_HOST/g" ./test/integration/features/support/init.js
-    node ./node_modules/cucumber/bin/cucumber-js ./test/integration --format json:report.json
-    node ./test/integration/index.js
     cp ./cucumber_report.html integration_output/apickli_report.html 
   displayName: runApickli
   enabled: "true"
-
-  
 
 # Publish integration test folder result
 - task: PublishBuildArtifacts@1
