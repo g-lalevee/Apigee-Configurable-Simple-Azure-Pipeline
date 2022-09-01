@@ -12,9 +12,9 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  APIGEE_ORG: "bap-emea-apigee-5"
-  APIGEE_CONFIG_ENV: "configurable-dev"
-  TEST_HOST: 34-117-38-184.nip.io
+  APIGEE_ORG: "ORG"
+  APIGEE_CONFIG_ENV: "ENV"
+  TEST_HOST: "HOST"
 
   # GCP_SERVICE_ACCOUNT is stored in Azure Pipeline variable settings
   
