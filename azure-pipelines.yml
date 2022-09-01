@@ -41,7 +41,7 @@ steps:
 # if deploy to Apigee X/hybrid
 - bash: |
     echo '$(GCP_SERVICE_ACCOUNT)' > sa.json
-  enabled: "false"
+  enabled: "true"
   displayName: Generate SA Key file 
   env:  
     GCP_SERVICE_ACCOUNT: $(GCP_SERVICE_ACCOUNT)
@@ -68,7 +68,7 @@ steps:
           --key-file sa.json && \
       
       gcloud apigee apis list
-      
+
       #gcloud beta apigee archives deploy --organization=$APIGEE_ORG \
       #    --environment=$APIGEE_CONFIG_ENV --source=proxy
 
