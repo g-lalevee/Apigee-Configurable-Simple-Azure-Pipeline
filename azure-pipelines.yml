@@ -67,7 +67,7 @@ steps:
           --quiet \
           --key-file sa.json && \
       
-      gcloud apigee apis list
+      gcloud apigee apis list --organization $APIGEE_ORG
 
       #gcloud beta apigee archives deploy --organization=$APIGEE_ORG \
       #    --environment=$APIGEE_CONFIG_ENV --source=proxy
