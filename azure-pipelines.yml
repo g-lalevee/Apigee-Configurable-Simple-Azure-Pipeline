@@ -21,21 +21,18 @@ variables:
   
 steps:
 
-
 # install node.js tools and dependencies
 - task: NodeTool@0
   inputs:
     versionSpec: '12.x'
-  enabled: "false"
+  enabled: "true"
     
 - task: Npm@1
   inputs:
     command: 'install'
     workingDir: '.'
   displayName: npmInstalls
-  enabled: "false"
-
-
+  enabled: "true"
 
 # Generate GCP Service Account file from Azure Pipeline variable GCP_SERVICE_ACCOUNT
 # if deploy to Apigee X/hybrid
@@ -67,14 +64,14 @@ steps:
     node ./test/integration/index.js
     cp ./cucumber_report.html integration_output/apickli_report.html 
   displayName: runApickli
-  enabled: "false"
+  enabled: "true"
 
   
 
 # Publish integration test folder result
 - task: PublishBuildArtifacts@1
   displayName: publishInteegrationTestsResults
-  enabled: "false"
+  enabled: "true"
   inputs:
     pathToPublish: integration_output
     artifactName: integration-tests
