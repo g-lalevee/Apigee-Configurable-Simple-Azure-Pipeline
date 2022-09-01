@@ -54,7 +54,7 @@ steps:
       gcloud auth activate-service-account \
           --quiet \
           --key-file sa.json && \
-      gcloud apigee archives deploy --organization=$APIGEE_ORG \
+      gcloud beta apigee archives deploy --organization=$APIGEE_ORG \
           --environment=$APIGEE_CONFIG_ENV --source=proxy
 
 # run Apickli, API test integration
